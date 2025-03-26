@@ -1,0 +1,39 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v5.0.0
+  hooks:
+  - id: check-added-large-files
+  - id: check-merge-conflict
+  - id: check-toml
+  - id: check-yaml
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+  - id: check-case-conflict
+  - id: check-json
+  - id: check-xml
+  - id: debug-statements
+  - id: check-symlinks
+  - id: debug-statements
+
+- repo: https://github.com/asottile/yesqa
+  rev: v1.5.0
+  hooks:
+  - id: yesqa
+
+- repo: https://github.com/Zac-HD/shed
+  rev: 2024.10.1
+  hooks:
+  - id: shed
+    args:
+    - --refactor
+    types_or:
+    - python
+    - markdown
+    - rst
+
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.9.6
+  hooks:
+  - id: ruff-format
+  - id: ruff
+    args: [--fix, --exit-non-zero-on-fix]
