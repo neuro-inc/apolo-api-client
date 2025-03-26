@@ -1,6 +1,7 @@
 .PHONY: all test clean
 all test clean:
 
+
 .PHONY: venv
 venv:
 	poetry lock;
@@ -15,6 +16,7 @@ poetry-plugins:
 
 .PHONY: setup
 setup: venv poetry-plugins
+
 
 format:
 	poetry run pre-commit run --all-files

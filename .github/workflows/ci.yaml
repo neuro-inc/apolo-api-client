@@ -29,6 +29,11 @@ jobs:
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-py-${{ matrix.py_version }}-${{ hashFiles('pyproject.toml') }}
+    - name: Cache pre-commit
+      uses: actions/cache@v4
+      with:
+        key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+        path: ~/.cache/pre-commit
     - name: Install pipx
       run: pip install --user pipx && python -m pipx ensurepath
     - name: Install Poetry
@@ -41,12 +46,6 @@ jobs:
       run: make lint
     - name: Run tests
       run: make test
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v5
-      with:
-        files: .coverage.xml
-        flags: py${{ matrix.py_version }}
-        name: codecov
 
   deploy:
     name: Release client
