@@ -69,21 +69,18 @@ jobs:
     steps:
     - name: Checkout commit
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Install python
       uses: actions/setup-python@v5
       with:
         python-version: 3.13
-    - name: Cache packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-py-${{ matrix.py_version }}-${{ hashFiles('pyproject.toml') }}
     - name: Install pipx
       run: pip install --user pipx && python -m pipx ensurepath
     - name: Install Poetry
       run: pipx install poetry
     - name: Install dependencies
-      run: make venv
+      run: make poetry-plugins
     - name: Build package
       run: poetry build
     - name: Publish to PyPI
