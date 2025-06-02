@@ -156,8 +156,8 @@ async def test_get_job(api_client: ApiClient) -> None:
     assert job.id == "test-job-id"
 
 
-async def test_get_jobs(api_client: ApiClient) -> None:
-    async with api_client.get_jobs() as gen:
+async def test_iter_jobs(api_client: ApiClient) -> None:
+    async with api_client.iter_jobs() as gen:
         jobs = [j async for j in gen]
 
     assert jobs[0].id == "test-job-id"

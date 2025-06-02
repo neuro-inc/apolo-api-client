@@ -98,12 +98,12 @@ class ApiClient:
             data = await response.json()
             return job_from_api(data)
 
-    def get_jobs(
+    def iter_jobs(
         self, **kwargs: Any
     ) -> AbstractAsyncContextManager[AsyncGenerator[Job]]:
-        return aclosing(self._get_jobs(**kwargs))
+        return aclosing(self._iter_jobs(**kwargs))
 
-    async def _get_jobs(
+    async def _iter_jobs(
         self,
         *,
         statuses: Iterable[JobStatus] = (),
