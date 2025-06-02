@@ -210,7 +210,7 @@ class Job:
     materialized: bool = False
     being_dropped: bool = False
     logs_removed: bool = False
-    namespace: str = "platform-jobs"
+    namespace: str = ""
 
 
 def _resources_from_api(data: Dict[str, Any]) -> Resources:
