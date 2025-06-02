@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import json
-import sys
 from collections.abc import AsyncGenerator, Iterable
 from contextlib import AbstractAsyncContextManager, aclosing
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import TracebackType
 from typing import Any
 
@@ -13,13 +12,6 @@ from multidict import MultiDict
 from yarl import URL
 
 from .jobs import Job, JobStatus, job_from_api
-
-if sys.version_info < (3, 11):
-    from datetime import timezone
-
-    UTC = timezone.utc
-else:
-    from datetime import UTC
 
 
 class ClientError(Exception):

@@ -1,14 +1,5 @@
-import sys
-from datetime import datetime
+from datetime import UTC, datetime
 from decimal import Decimal
-
-if sys.version_info < (3, 11):
-    from datetime import timezone
-
-    UTC = timezone.utc
-else:
-    from datetime import UTC
-
 
 from yarl import URL
 
