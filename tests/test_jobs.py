@@ -105,6 +105,7 @@ async def test_job_from_api() -> None:
             "run_time_seconds": 4.168895,
             "restarts": 0,
         },
+        "namespace": "job-namespace",
     }
 
     assert job_from_api(data) == Job(
@@ -191,4 +192,5 @@ async def test_job_from_api() -> None:
                 )
             ],
         ),
+        namespace="job-namespace",
     )
