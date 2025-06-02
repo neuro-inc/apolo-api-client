@@ -210,6 +210,7 @@ class Job:
     materialized: bool = False
     being_dropped: bool = False
     logs_removed: bool = False
+    namespace: str = ""
 
 
 def _resources_from_api(data: Dict[str, Any]) -> Resources:
@@ -340,6 +341,7 @@ def job_from_api(data: Dict[str, Any]) -> Job:
         materialized=data.get("materialized", False),
         being_dropped=data.get("being_dropped", False),
         logs_removed=data.get("logs_removed", False),
+        namespace=data.get("namespace", Job.namespace),
     )
 
 

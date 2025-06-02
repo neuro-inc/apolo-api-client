@@ -1,14 +1,5 @@
-import sys
-from datetime import datetime
+from datetime import UTC, datetime
 from decimal import Decimal
-
-if sys.version_info < (3, 11):
-    from datetime import timezone
-
-    UTC = timezone.utc
-else:
-    from datetime import UTC
-
 
 from yarl import URL
 
@@ -114,6 +105,7 @@ async def test_job_from_api() -> None:
             "run_time_seconds": 4.168895,
             "restarts": 0,
         },
+        "namespace": "job-namespace",
     }
 
     assert job_from_api(data) == Job(
@@ -200,4 +192,5 @@ async def test_job_from_api() -> None:
                 )
             ],
         ),
+        namespace="job-namespace",
     )

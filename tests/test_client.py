@@ -124,6 +124,10 @@ def api_token() -> str:
 async def api_server(
     unused_tcp_port_factory: Callable[[], int], job: dict[str, Any], api_token: str
 ) -> AsyncIterator[URL]:
+    async def _handle_get_jobs(request: aiohttp.web.Request) -> aiohttp.web.Response:
+        assert request.headers["Authorization"] == f"Bearer {api_token}"
+        return aiohttp.web.json_response({"jobs": [job]})
+
     async def _handle_get_job(request: aiohttp.web.Request) -> aiohttp.web.Response:
         assert request.headers["Authorization"] == f"Bearer {api_token}"
         return aiohttp.web.json_response(job)
@@ -131,6 +135,7 @@ async def api_server(
     app = aiohttp.web.Application()
     app.add_routes(
         [
+            aiohttp.web.get("/api/v1/jobs", _handle_get_jobs),
             aiohttp.web.get("/api/v1/jobs/{id}", _handle_get_job),
         ]
     )
@@ -149,3 +154,10 @@ async def test_get_job(api_client: ApiClient) -> None:
     job = await api_client.get_job("test-job-id")
 
     assert job.id == "test-job-id"
+
+
+async def test_iter_jobs(api_client: ApiClient) -> None:
+    async with api_client.iter_jobs() as gen:
+        jobs = [j async for j in gen]
+
+    assert jobs[0].id == "test-job-id"
